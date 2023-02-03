@@ -1,6 +1,6 @@
 package data
 
 type locations struct {
-	Id int `json:"id"`
+	ID int `json:"id"`
 	Locations []string `json:"locations"`
 }
