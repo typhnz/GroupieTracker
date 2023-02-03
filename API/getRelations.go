@@ -7,7 +7,7 @@ import (
 )
 
 func relation() {
-	url := "https://groupietrackers.herokuapp.com/api/relation"
+	url := "https://groupietrackers.herokuapp.com/api/relations"
 	req, _ := http.NewRequest("GET", url, nil)
 	res, _ := http.DefaultClient.Do(req)
 	defer res.Body.Close()
