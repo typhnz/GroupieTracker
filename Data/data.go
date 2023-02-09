@@ -1,9 +1,11 @@
 package data
 
-/*import (
+import (
 	"encoding/json"
 	"fmt"
-)*/
+	"io/ioutil"
+	"os"
+)
 
 type artist struct {
 	ID          string `json:"id"`
@@ -14,8 +16,10 @@ type artist struct {
 }
 
 type dates struct {
+
 	ID int `json:"id"`
 	Dates []string `json:"dates"`
+
 }
 
 
