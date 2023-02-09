@@ -12,7 +12,11 @@ type artist struct {
 	Image       string
 	Name        string
 	Members	 []string
-	ReleaseDate string
+	CreationDate int
+	FirstAlbum string
+	Locations string
+	ConcertDates string
+	Relation string
 }
 
 func main() {
@@ -31,5 +35,5 @@ func artists() {
 		fmt.Println("Error:", err)
 		return
 	}
-	fmt.Println("Personne:", a[1].Name)
+	fmt.Println("Personne:", a[0].Relation)
 }
