@@ -1,9 +1,9 @@
-package main
+package data
 
-import (
+/*import (
 	"encoding/json"
 	"fmt"
-)
+)*/
 
 type artist struct {
 	ID          string `json:"id"`
@@ -13,10 +13,13 @@ type artist struct {
 	ReleaseDate string `json:"releasedate"`
 }
 
-func main() {
-	u, err := json.Marshal(artist{Name: "Marina", ReleaseDate: "January 8th 2000"})
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(string(u))
+type dates struct {
+	ID int `json:"id"`
+	Dates []string `json:"dates"`
+}
+
+
+type locations struct {
+	ID int `json:"id"`
+	Locations []string `json:"locations"`
 }
