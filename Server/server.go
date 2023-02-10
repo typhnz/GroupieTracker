@@ -26,12 +26,12 @@ func renderTemplate(w http.ResponseWriter, tmpl string) {
 }
 
 func main() {
+	fmt.Println("(http://localhost:8080) - The serveur start on port", port)
 	templates := http.FileServer(http.Dir("../templates/cssFile"))
 	http.Handle("/cssFile/", http.StripPrefix("/cssFile/", templates))
 	http.HandleFunc("/", home)
 	http.HandleFunc("/contact", contact)
 	http.ListenAndServe(":8080", nil)
-	fmt.Println("(http://localhost:8080) - The serveur start on port", port)
 
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
