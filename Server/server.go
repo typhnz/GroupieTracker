@@ -26,6 +26,8 @@ func renderTemplate(w http.ResponseWriter, tmpl string) {
 }
 
 func main() {
+	templates := http.FileServer(http.Dir("../templates/cssFile"))
+	http.Handle("/cssFile/", http.StripPrefix("/cssFile/", templates))
 	http.HandleFunc("/", home)
 	http.HandleFunc("/contact", contact)
 	http.ListenAndServe(":8080", nil)
