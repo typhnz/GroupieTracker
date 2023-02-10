@@ -1,43 +1,48 @@
-package api
+package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"net/http"
 	"io/ioutil"
+	"net/http"
 )
 
-func artist() {
+type artist struct {
+	ID           int
+	Image        string
+	Name         string
+	Members      []string
+	CreationDate int
+	FirstAlbum   string
+	Locations    string
+	ConcertDates string
+	//Relation []string
+}
+
+func main() {
+	artists()
+}
+
+func artists() {
+	var a []artist
 	url := "https://groupietrackers.herokuapp.com/api/artists"
 	req, _ := http.NewRequest("GET", url, nil)
 	res, _ := http.DefaultClient.Do(req)
 	defer res.Body.Close()
 	body, _ := ioutil.ReadAll(res.Body)
-	fmt.Println(string(body))
-}
-
-func date() {
-	url := "https://groupietrackers.herokuapp.com/api/dates"
-	req, _ := http.NewRequest("GET", url, nil)
-	res, _ := http.DefaultClient.Do(req)
-	defer res.Body.Close()
-	body, _ := ioutil.ReadAll(res.Body)
-	fmt.Println(string(body))
-}
-
-func location() {
-	url := "https://groupietrackers.herokuapp.com/api/locations"
-	req, _ := http.NewRequest("GET", url, nil)
-	res, _ := http.DefaultClient.Do(req)
-	defer res.Body.Close()
-	body, _ := ioutil.ReadAll(res.Body)
-	fmt.Println(string(body))
-}
-
-func relation() {
-	url := "https://groupietrackers.herokuapp.com/api/relations"
-	req, _ := http.NewRequest("GET", url, nil)
-	res, _ := http.DefaultClient.Do(req)
-	defer res.Body.Close()
-	body, _ := ioutil.ReadAll(res.Body)
-	fmt.Println(string(body))
+	err := json.Unmarshal((body), &a)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	for i := 0; i < len(a); i++ {
+		fmt.Println("Image:", a[i].Image)
+		fmt.Println("Nom:", a[i].Name)
+		fmt.Println("Membres:", a[i].Members)
+		fmt.Println("Date of creation:", a[i].CreationDate)
+		fmt.Println("Date of first Album:", a[i].FirstAlbum)
+		fmt.Println("Location:", a[i].Locations)
+		fmt.Println("Date of concert:", a[i].ConcertDates)
+		fmt.Println("\n")
+	}
 }
