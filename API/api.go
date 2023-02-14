@@ -8,20 +8,18 @@ import (
 )
 
 type artist struct {
-	ID           int
-	Image        string
-	Name         string
-	Members      []string
-	CreationDate int
-	FirstAlbum   string
-	Locations    string
-	ConcertDates string
+	ID           int      `json:"id"`
+	Image        string   `json:"image"`
+	Name         string   `json:"name"`
+	Members      []string `json:"members"`
+	CreationDate int      `json:"creationDate"`
+	FirstAlbum   string   `json:"firstAlbum"`
+	Locations    string   `json:"locations"`
+	ConcertDates string   `json:"concertDates"`
 	//Relation []string
 }
 
-func main() {
-	artists()
-}
+var element []artist
 
 func artists() {
 	var a []artist
@@ -37,12 +35,16 @@ func artists() {
 	}
 	for i := 0; i < len(a); i++ {
 		fmt.Println("Image:", a[i].Image)
-		fmt.Println("Nom:", a[i].Name)
-		fmt.Println("Membres:", a[i].Members)
-		fmt.Println("Date of creation:", a[i].CreationDate)
-		fmt.Println("Date of first Album:", a[i].FirstAlbum)
-		fmt.Println("Location:", a[i].Locations)
-		fmt.Println("Date of concert:", a[i].ConcertDates)
-		fmt.Println("\n")
+		fmt.Println("Name:", a[i].Name)
+		fmt.Println("Members:", a[i].Members)
+		fmt.Println("CreationDate:", a[i].CreationDate)
+		fmt.Println("FirstAlbum", a[i].FirstAlbum)
+		fmt.Println("Locations:", a[i].Locations)
+		fmt.Println("ConcertDates:", a[i].ConcertDates)
+		fmt.Printf("\n")
 	}
+}
+
+func main() {
+	artists()
 }
