@@ -17,7 +17,7 @@ func contact(w http.ResponseWriter, r *http.Request) {
 }
 
 func renderTemplate(w http.ResponseWriter, tmpl string) {
-	t, err := template.ParseFiles("../templates/" + tmpl + ".page.tmpl")
+	t, err := template.ParseFiles("../templates/" + tmpl + ".html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -27,8 +27,8 @@ func renderTemplate(w http.ResponseWriter, tmpl string) {
 
 func main() {
 	fmt.Println("(http://localhost:8080) - The serveur start on port", port)
-	templates := http.FileServer(http.Dir("../templates/cssFile"))
-	http.Handle("/cssFile/", http.StripPrefix("/cssFile/", templates))
+	http.Handle("/cssFile/", http.StripPrefix("/cssFile/", http.FileServer(http.Dir("../templates/cssFile"))))
+	http.Handle("/javaFile/", http.StripPrefix("/javaFile/", http.FileServer(http.Dir("../templates/javaFile"))))
 	http.HandleFunc("/", home)
 	http.HandleFunc("/contact", contact)
 	http.ListenAndServe(":8080", nil)
