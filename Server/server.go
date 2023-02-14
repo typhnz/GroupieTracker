@@ -16,13 +16,17 @@ func contact(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "contact")
 }
 
+func api(w http.ResponseWriter, R *http.Request) {
+	renderTemplate(w, "api")
+}
+
 func renderTemplate(w http.ResponseWriter, tmpl string) {
-	t, err := template.ParseFiles("../templates/" + tmpl + ".page.tmpl")
+	t, err := template.ParseFiles("templates/" + tmpl + ".page.tmpl")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	t.Execute(w, nil)
+	t.Execute(w, artists)
 }
 
 func main() {
@@ -31,6 +35,8 @@ func main() {
 	http.Handle("/cssFile/", http.StripPrefix("/cssFile/", templates))
 	http.HandleFunc("/", home)
 	http.HandleFunc("/contact", contact)
+	http.HandleFunc("/api", api)
+	http.HandleFunc("/renderTemplate", renderTemplate)
 	http.ListenAndServe(":8080", nil)
 
 	err := http.ListenAndServe(":8080", nil)
