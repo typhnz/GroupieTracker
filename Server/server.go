@@ -21,7 +21,11 @@ func api(w http.ResponseWriter, R *http.Request) {
 }
 
 func renderTemplate(w http.ResponseWriter, tmpl string) {
+<<<<<<< HEAD
 	t, err := template.ParseFiles("templates/" + tmpl + ".page.tmpl")
+=======
+	t, err := template.ParseFiles("../templates/" + tmpl + ".html")
+>>>>>>> c705692758414836dff95ee2ffb94cc7a5ad7a09
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -31,8 +35,8 @@ func renderTemplate(w http.ResponseWriter, tmpl string) {
 
 func main() {
 	fmt.Println("(http://localhost:8080) - The serveur start on port", port)
-	templates := http.FileServer(http.Dir("../templates/cssFile"))
-	http.Handle("/cssFile/", http.StripPrefix("/cssFile/", templates))
+	http.Handle("/cssFile/", http.StripPrefix("/cssFile/", http.FileServer(http.Dir("../templates/cssFile"))))
+	http.Handle("/javaFile/", http.StripPrefix("/javaFile/", http.FileServer(http.Dir("../templates/javaFile"))))
 	http.HandleFunc("/", home)
 	http.HandleFunc("/contact", contact)
 	http.HandleFunc("/api", api)

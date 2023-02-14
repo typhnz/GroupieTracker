@@ -7,7 +7,11 @@ import (
 	"io/ioutil"
 )
 
+<<<<<<< HEAD
 type Artist struct {
+=======
+type artist struct {
+>>>>>>> c705692758414836dff95ee2ffb94cc7a5ad7a09
 	ID           int      `json:"id"`
 	Image        string   `json:"image"`
 	Name         string   `json:"name"`
@@ -16,8 +20,15 @@ type Artist struct {
 	FirstAlbum   string   `json:"firstAlbum"`
 	Locations    string   `json:"locations"`
 	ConcertDates string   `json:"concertDates"`
+<<<<<<< HEAD
 	Relations    string   `json:"relations"`
 }
+=======
+	//Relation []string
+}
+
+var element []artist
+>>>>>>> c705692758414836dff95ee2ffb94cc7a5ad7a09
 
 func artists() []Artist {
 	var a []Artist
@@ -31,6 +42,7 @@ func artists() []Artist {
 		fmt.Println("Error:", err)
 		return nil
 	}
+<<<<<<< HEAD
 	return a
 }
 
@@ -54,3 +66,20 @@ func main() {
 	}
 }
 
+=======
+	for i := 0; i < len(a); i++ {
+		fmt.Println("Image:", a[i].Image)
+		fmt.Println("Name:", a[i].Name)
+		fmt.Println("Members:", a[i].Members)
+		fmt.Println("CreationDate:", a[i].CreationDate)
+		fmt.Println("FirstAlbum", a[i].FirstAlbum)
+		fmt.Println("Locations:", a[i].Locations)
+		fmt.Println("ConcertDates:", a[i].ConcertDates)
+		fmt.Printf("\n")
+	}
+}
+
+func main() {
+	artists()
+}
+>>>>>>> c705692758414836dff95ee2ffb94cc7a5ad7a09
