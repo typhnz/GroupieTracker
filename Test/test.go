@@ -185,5 +185,5 @@ func main() {
 	http.HandleFunc("/artist", artist)
 	http.HandleFunc("/artist/", details)
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8081", nil))
 }
