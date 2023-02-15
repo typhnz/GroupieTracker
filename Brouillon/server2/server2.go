@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	g "groupie/GroupieTracker"
+	"groupie/GroupieTracker"
 	"html/template"
 	"net/http"
 )
