@@ -11,12 +11,17 @@ const port = ":8080"
 func home(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "home")
 }
+
+func artist(w http.ResponseWriter, r *http.Request) {
+	renderTemplate(w, "artist")
+}
+
 func contact(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "contact")
 }
 
 func renderTemplate(w http.ResponseWriter, tmpl string) {
-	t, err := template.ParseFiles("../templates/" + tmpl + ".html") //le problème est ici
+	t, err := template.ParseFiles("../templates/" + tmpl + ".html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -29,6 +34,7 @@ func main() {
 	http.Handle("/cssFile/", http.StripPrefix("/cssFile/", http.FileServer(http.Dir("../templates/cssFile"))))
 	http.Handle("/javaFile/", http.StripPrefix("/javaFile/", http.FileServer(http.Dir("../templates/javaFile"))))
 	http.HandleFunc("/", home)
+	http.HandleFunc("/artist", artist)
 	http.HandleFunc("/contact", contact)
 	http.ListenAndServe(":8080", nil)
 	err := http.ListenAndServe(":8080", nil)
