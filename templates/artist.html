@@ -1,0 +1,23 @@
+<!Doctype HTML>
+<html>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://localhost:8080/cssFile/artist.css">
+    <head>
+        <title>Artists</title>
+    </head>
+    <body>  
+        <h1>Artists</h1>     
+    <div class="cards">
+        <form action="artist" method="post">
+            <button class="card" value="{{.Id}}" type="submit" name ="btn"> 
+                <img src = {{.Image}} class="image"></img>
+                <div class="container">
+                    <h1>Hello</h1>
+                </div>
+            </button>
+        </form>
+    </div>
+    </body>
+</html>

@@ -1,0 +1,13 @@
+body {
+    background: black;
+}
+
+.card {
+    background-color: pink;
+    height: 20vh;
+    width: 20vw;
+}
+
+h1 {
+    background-color: aliceblue;
+}
