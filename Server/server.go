@@ -12,7 +12,9 @@ func home(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "home")
 }
 
-
+func mainPage(w http.ResponseWriter, r *http.Request) {
+	renderTemplate(w, "mainPage")
+}
 
 func contact(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "contact")
@@ -33,6 +35,7 @@ func main() {
 	http.Handle("/javaFile/", http.StripPrefix("/javaFile/", http.FileServer(http.Dir("../templates/javaFile"))))
 	http.HandleFunc("/", home)
 	http.HandleFunc("/contact", contact)
+	http.HandleFunc("/mainPage", mainPage)
 	http.ListenAndServe(":8080", nil)
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
