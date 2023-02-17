@@ -8,15 +8,15 @@ import (
 )
 
 type artist struct {
-	ID           int
-	Image        string
-	Name         string
-	Members      []string
-	CreationDate int
-	FirstAlbum   string
-	Locations    string
-	ConcertDates string
-	//Relation []string
+	ID           int 		`json:"id"`
+	Image        string 	`json:"image"`
+	Name         string 	`json:"name"`
+	Members      []string 	`json:"members"`
+	CreationDate int 		`json:"creationDate"`
+	FirstAlbum   string 	`json:"firstAlbum"`
+	Locations    string 	`json:"locations"`
+	ConcertDates string 	`json:"concertDates"`
+	Relation     string 	`json:"relations"`
 }
 
 func main() {

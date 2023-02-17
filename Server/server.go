@@ -11,6 +11,9 @@ const port = ":8080"
 func home(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "home")
 }
+
+
+
 func contact(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "contact")
 }
