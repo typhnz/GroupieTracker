@@ -32,6 +32,7 @@ func main() {
 	fmt.Println("(http://localhost:8080) - The serveur start on port", port)
 	http.Handle("/cssFile/", http.StripPrefix("/cssFile/", http.FileServer(http.Dir("../templates/cssFile"))))
 	http.Handle("/javaFile/", http.StripPrefix("/javaFile/", http.FileServer(http.Dir("../templates/javaFile"))))
+	http.Handle("/picture/", http.StripPrefix("/picture/", http.FileServer(http.Dir("../templates/picture"))))
 	http.HandleFunc("/", home)
 	http.HandleFunc("/contact", contact)
 	http.HandleFunc("/mainPage", mainPage)
