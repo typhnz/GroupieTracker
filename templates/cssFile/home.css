@@ -25,3 +25,24 @@ h1{
     padding-top: 30%;
     left: 0;
 }
+
+
+.firstButton {
+    margin-left: 50%;
+    padding-top: 30%;
+    background: none;
+    border: 2px solid;
+    font: inherit;
+    line-height: 1;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #ffffff;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+}
+
+.firstButton:hover{
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+  background:linear-gradient(#ffffff, #0000);
+}
