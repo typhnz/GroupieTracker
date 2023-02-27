@@ -65,6 +65,7 @@ var templates = template.Must(template.ParseFiles("HTML/artists.html")) //1-> ho
 var templates2 = template.Must(template.ParseFiles("HTML/hpage.html"))
 var templates3 = template.Must(template.ParseFiles("HTML/details.html"))
 var ApiObject []API
+
 //var data string
 var Id_data string
 
@@ -184,7 +185,7 @@ func details(w http.ResponseWriter, r *http.Request) {
 
 //server
 func main() {
-	fs := http.FileServer(http.Dir("./css"))
+	fs := http.FileServer(http.Dir("/css"))
 	http.Handle("/css/", http.StripPrefix("/css/", fs))
 	http.HandleFunc("/", home)
 	http.HandleFunc("/artist", artist)
