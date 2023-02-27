@@ -13,6 +13,10 @@ import (
 	"text/template"
 )
 
+// artists -> main
+// hpage -> home
+//
+
 //api
 type API struct {
 	ID           int      `json:"id"`

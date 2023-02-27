@@ -12,10 +12,6 @@ func home(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "home")
 }
 
-func mainPage(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "mainPage")
-}
-
 func contact(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "contact")
 }
