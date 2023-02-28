@@ -46,10 +46,10 @@ type Descritpion struct {
 }
 
 //3
-var tempCard = template.Must(template.ParseFiles("HTML/artists.html"))    //templates -> tempCard           check      artists -> card
-var tempHome = template.Must(template.ParseFiles("HTML/hpage.html"))      //templates2 -> tempHome            check      hpage -> homePage
-var tempDetails = template.Must(template.ParseFiles("HTML/details.html")) //templates3 -> tempDetails    check      details -> details
-var ApiElements []ArtistAPI                                               //ApiObject -> ApiElements    check
+var tempCard = template.Must(template.ParseFiles("HTML/artists.html"))    //artists -> card
+var tempHome = template.Must(template.ParseFiles("HTML/hpage.html"))      //hpage -> homePage
+var tempDetails = template.Must(template.ParseFiles("HTML/details.html")) //details -> details
+var ApiElements []ArtistAPI
 
 func artist(w http.ResponseWriter, r *http.Request) {
 

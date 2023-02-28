@@ -2,7 +2,7 @@
 
 
 .site {
-  background-color: #0A192F;
+  background-color: #416db0;
   background-size: cover;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .bouton  {
-  background-color: #0A192F;
+  background-color: #2168d1;
   font-family: 'Merriweather', serif;
   cursor: pointer;
   border-radius: 8px;
@@ -124,7 +124,7 @@
   text-align: center;
   transition: transform 0.6s;
   transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(220, 15, 15, 0.2);
 }
 
 .flip-card:hover .flip-card-inner {
