@@ -20,7 +20,7 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func renderTemplate(w http.ResponseWriter, tmpl string) {
-	t, err := template.ParseFiles("../templates/" + tmpl + ".html") //le problème est ici
+	t, err := template.ParseFiles("../templates/" + tmpl + ".html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

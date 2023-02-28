@@ -10,12 +10,21 @@
             <h1 class="mainText"> Lorem ipsum dolor sit amet.</h1>
             <h2 class="mainText">Lorem ipsum dolor sit amet.</h2>
         </div>
-        <div class="button">
-            <form class="raise" action = "/mainPage" method="post">
-                <input class="firstButton" type="submit" value="Découvrir les artistes" name="home">
-            </form>
-        </div>
 
+        <form action="/mainPage">
+            <button type="submit" class="btn">
+                <strong>Découvrir les artistes</strong>
+                <div id="container-stars">
+                    <div id="stars"></div>
+                </div>
+          
+                <div id="glow">
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                </div>
+            </button>
+        </form>
+    
         
         <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
         <script src="http://localhost:8080/javaFile/writeAnimation.js"></script>
@@ -24,3 +33,6 @@
     </body>
 
 </html>
+
+
+
