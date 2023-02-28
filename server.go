@@ -19,8 +19,8 @@ type Artist struct {
 	//Relation []string
 }
 
-type artistsArray struct {
-
+type artistsData struct {
+	artists []Artist
 }
 
 const port = ":8080"

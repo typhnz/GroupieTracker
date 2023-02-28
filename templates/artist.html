@@ -7,9 +7,8 @@
 </head>
 <body>
   <div class="cards-container">
-    <!-- JSON data goes here, need to create a loop to go through all JSON elements -->
-    const data = []; 
-    {{range .}}
+    <!-- JSON data goes here, need to create a loop to go through all JSON elements --> 
+    {{range .artists}}
     <!--Create HTML elements and populate with data-->
     <div class="card">
         <img class="Image">{{.Image}}</img>
@@ -17,7 +16,7 @@
         <p class="Creation Date">{{.CreationDate}}</p>
         <p class="First Album"> {{.FirstAlbum}}</p>
         <p class="Locations">{{.Locations</p>
-        <p class="Concert Dates">$ {{.ConcertDates}}</p>
+        <p class="Concert Dates">{{.ConcertDates}}</p>
     </div>
   </div>
 </body>
