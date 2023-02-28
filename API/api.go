@@ -5,23 +5,27 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"text/template"
 )
 
 type artist struct {
-	ID           int 		`json:"id"`
-	Image        string 	`json:"image"`
-	Name         string 	`json:"name"`
-	Members      []string 	`json:"members"`
-	CreationDate int 		`json:"creationDate"`
-	FirstAlbum   string 	`json:"firstAlbum"`
-	Locations    string 	`json:"locations"`
-	ConcertDates string 	`json:"concertDates"`
-	Relation     string 	`json:"relations"`
+	ID           int      `json:"id"`
+	Image        string   `json:"image"`
+	Name         string   `json:"name"`
+	Members      []string `json:"members"`
+	CreationDate int      `json:"creationDate"`
+	FirstAlbum   string   `json:"firstAlbum"`
+	Locations    string   `json:"locations"`
+	ConcertDates string   `json:"concertDates"`
+	Relation     string   `json:"relations"`
 }
 
-func main() {
-	artists()
+type artistarray struct {
+	Array []artist
 }
+const port = ":8080"
+
+var artistData artistarray
 
 func artists() {
 	var a []artist
@@ -30,7 +34,7 @@ func artists() {
 	res, _ := http.DefaultClient.Do(req)
 	defer res.Body.Close()
 	body, _ := ioutil.ReadAll(res.Body)
-	err := json.Unmarshal((body), &a)
+	err := json.Unmarshal([]byte(body), &artistData.Array)
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
@@ -44,5 +48,28 @@ func artists() {
 		fmt.Println("Location:", a[i].Locations)
 		fmt.Println("Date of concert:", a[i].ConcertDates)
 		fmt.Println("\n")
+	}
+}
+func mainPage(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("../templates/mainPage.html")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	t.Execute(w, artistData)
+}
+func main() {
+	artists()
+	fmt.Println("(http://localhost:8080) - The serveur start on port", port)
+	http.Handle("/cssFile/", http.StripPrefix("/cssFile/", http.FileServer(http.Dir("../templates/cssFile"))))
+	http.Handle("/javaFile/", http.StripPrefix("/javaFile/", http.FileServer(http.Dir("../templates/javaFile"))))
+	http.Handle("/picture/", http.StripPrefix("/picture/", http.FileServer(http.Dir("../templates/picture"))))
+	// http.HandleFunc("/", home)
+	// http.HandleFunc("/contact", contact)
+	http.HandleFunc("/mainPage", mainPage)
+	http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		fmt.Println(err)
 	}
 }

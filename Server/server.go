@@ -16,9 +16,16 @@ func contact(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "contact")
 }
 
-func mainPage(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "mainPage")
-}
+// func mainPage(w http.ResponseWriter, r *http.Request) {
+	// t, err := template.ParseFiles("../templates/mainPage.html")
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return
+	// }
+	// t.Execute(w, artistData)
+
+	// renderTemplate(w, "mainPage")
+// }
 
 func renderTemplate(w http.ResponseWriter, tmpl string) {
 	t, err := template.ParseFiles("../templates/" + tmpl + ".html") //le problème est ici
