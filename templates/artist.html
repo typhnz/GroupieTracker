@@ -1,23 +1,24 @@
-<!Doctype HTML>
+<!DOCTYPE html>
 <html>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="http://localhost:8080/cssFile/artist.css">
-    <head>
-        <title>Artists</title>
-    </head>
-    <body>  
-        <h1>Artists</h1>     
-    <div class="cards">
-        <form action="artist" method="post">
-            <button class="card" value="{{.Id}}" type="submit" name ="btn"> 
-                <img src = {{.Image}} class="image"></img>
-                <div class="container">
-                    <h1>Hello</h1>
-                </div>
-            </button>
-        </form>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="cssFile/artist.css">
+  <title>Artist Page</title>
+</head>
+<body>
+  <div class="cards-container">
+    <!-- JSON data goes here, need to create a loop to go through all JSON elements -->
+    const data = []; 
+    {{range .}}
+    <!--Create HTML elements and populate with data-->
+    <div class="card">
+        <img class="Image">{{.Image}}</img>
+        <p class="Members">{{.Members}}</p>
+        <p class="Creation Date">{{.CreationDate}}</p>
+        <p class="First Album"> {{.FirstAlbum}}</p>
+        <p class="Locations">{{.Locations</p>
+        <p class="Concert Dates">$ {{.ConcertDates}}</p>
     </div>
-    </body>
+  </div>
+</body>
 </html>

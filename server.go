@@ -19,6 +19,10 @@ type Artist struct {
 	//Relation []string
 }
 
+type artistsArray struct {
+
+}
+
 const port = ":8080"
 
 func main() {
@@ -43,28 +47,6 @@ func artists() ([]Artist, error) {
 	return a, nil
 }
 
-func home(w http.ResponseWriter, r *http.Request) {
-	data, err := artists()
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	renderTemplate(w, "home", data)
-}
-
-func artist(w http.ResponseWriter, r *http.Request) {
-	data, err := artists()
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	renderTemplate(w, "artist", data)
-}
-
-func contact(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "contact", nil)
-}
-
 func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
 	t, err := template.ParseFiles("./templates/" + tmpl + ".html")
 	if err != nil {
@@ -74,12 +56,36 @@ func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
 	t.Execute(w, data)
 }
 
+func home(w http.ResponseWriter, r *http.Request) {
+	data, err := artists()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	renderTemplate(w, "home", data)
+}
+
+/*func artist(w http.ResponseWriter, r *http.Request) {
+	data, err := artists()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	renderTemplate(w, "artist", data)
+}*/
+
+func contact(w http.ResponseWriter, r *http.Request) {
+	renderTemplate(w, "contact", nil)
+}
+
 func displayArtists(w http.ResponseWriter, r *http.Request) {
 	data, err := artists()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	renderTemplate(w, "artist", data)
+	
 	jsonData, err := json.Marshal(data)
 	if err != nil {
 		http.Error(w, "Error marshalling data", http.StatusInternalServerError)
