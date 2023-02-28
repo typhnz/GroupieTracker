@@ -184,13 +184,13 @@ func details(w http.ResponseWriter, r *http.Request) {
 }
 
 //server
-func main() {
-	fs := http.FileServer(http.Dir("/css"))
-	http.Handle("/css/", http.StripPrefix("/css/", fs))
-	http.HandleFunc("/", home)
-	http.HandleFunc("/artist", artist)
-	http.HandleFunc("/artist/", details)
-	//on ajoute ici
+// func main() {
+// 	fs := http.FileServer(http.Dir("/css"))
+// 	http.Handle("/css/", http.StripPrefix("/css/", fs))
+// 	http.HandleFunc("/", home)
+// 	http.HandleFunc("/artist", artist)
+// 	http.HandleFunc("/artist/", details)
+// 	//on ajoute ici
 
-	log.Fatal(http.ListenAndServe(":8081", nil))
-}
+// 	log.Fatal(http.ListenAndServe(":8081", nil))
+// }
