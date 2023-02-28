@@ -6,17 +6,18 @@
   <title>Artist Page</title>
 </head>
 <body>
+  <!-- JSON data goes here, need to create a loop to go through all JSON elements --> 
+  <!--Create HTML elements and populate with data-->
   <div class="cards-container">
-    <!-- JSON data goes here, need to create a loop to go through all JSON elements --> 
-    {{range .artists}}
-    <!--Create HTML elements and populate with data-->
     <div class="card">
-        <img class="Image">{{.Image}}</img>
-        <p class="Members">{{.Members}}</p>
-        <p class="Creation Date">{{.CreationDate}}</p>
-        <p class="First Album"> {{.FirstAlbum}}</p>
-        <p class="Locations">{{.Locations</p>
-        <p class="Concert Dates">{{.ConcertDates}}</p>
+        {{range .}}
+        <h1 class="Name">{{.Name}}</h1>
+        <img src="{{.Image}}" alt="236">
+        <div>
+          <p class="Members">{{.Members}}</p>
+          <p class="">{{.Members}}</p>
+        </div>
+        {{end}}
     </div>
   </div>
 </body>

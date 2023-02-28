@@ -8,19 +8,19 @@ import (
 )
 
 type Artist struct {
-	ID           int
-	Image        string
-	Name         string
-	Members      []string
-	CreationDate int
-	FirstAlbum   string
-	Locations    string
-	ConcertDates string
+	ID           int      `json:"id"`
+	Image        string   `json:"image"`
+	Name         string   `json:"name"`
+	Members      []string `json:"members"`
+	CreationDate int      `json:"creationDate"`
+	FirstAlbum   string   `json:"firstAlbum"`
+	Locations    string   `json:"locations"`
+	ConcertDates string   `json:"concertDates"`
 	//Relation []string
 }
 
 type artistsData struct {
-	artists []Artist
+	Artists []Artist
 }
 
 const port = ":8080"
@@ -34,10 +34,11 @@ func main() {
 }
 
 func artists() ([]Artist, error) {
-	var a []Artist
 	url := "https://groupietrackers.herokuapp.com/api/artists"
 	req, _ := http.NewRequest("GET", url, nil)
 	res, _ := http.DefaultClient.Do(req)
+
+	var a []Artist
 	defer res.Body.Close()
 	body, _ := ioutil.ReadAll(res.Body)
 	err := json.Unmarshal((body), &a)
@@ -85,12 +86,12 @@ func displayArtists(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	renderTemplate(w, "artist", data)
-	
-	jsonData, err := json.Marshal(data)
+
+	/*jsonData, err := json.Marshal(data)
 	if err != nil {
 		http.Error(w, "Error marshalling data", http.StatusInternalServerError)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
+	w.Write(jsonData)*/
 }
