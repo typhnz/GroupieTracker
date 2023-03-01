@@ -28,6 +28,15 @@ func renderTemplate(w http.ResponseWriter, tmpl string) {
 	t.Execute(w, nil)
 }
 
+func searchHandler(w http.ResponseWriter, r *http.Request) {
+	query := r.URL.Query().Get("query")
+	if query != "" {
+		fmt.Fprintf(w, "Vous avez cherché: %s", query)
+	} else {
+		renderTemplate(w, "mainPage")
+	}
+}
+
 func main() {
 	fmt.Println("(http://localhost:8080) - The serveur start on port", port)
 	http.Handle("/cssFile/", http.StripPrefix("/cssFile/", http.FileServer(http.Dir("../templates/cssFile"))))
@@ -36,6 +45,7 @@ func main() {
 	http.HandleFunc("/", home)
 	http.HandleFunc("/contact", contact)
 	http.HandleFunc("/mainPage", mainPage)
+	http.HandleFunc("/search", searchHandler)
 	http.ListenAndServe(":8080", nil)
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
