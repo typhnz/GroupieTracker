@@ -2,12 +2,17 @@ package main
 
 import (
 	"encoding/json"
-	"html/template"
+	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
+	"path"
+	"strconv"
+	"text/template"
 )
 
-type Artist struct {
+type ArtistAPI struct {
 	ID           int      `json:"id"`
 	Image        string   `json:"image"`
 	Name         string   `json:"name"`
@@ -16,82 +21,131 @@ type Artist struct {
 	FirstAlbum   string   `json:"firstAlbum"`
 	Locations    string   `json:"locations"`
 	ConcertDates string   `json:"concertDates"`
-	//Relation []string
+	Relations    string   `json:"relations"`
 }
 
-type artistsData struct {
-	Artists []Artist
+type Relation struct {
+	ID             int                 `json:"id"`
+	DatesLocations map[string][]string `json:"DatesLocations"`
 }
 
-const port = ":8080"
-
-func main() {
-	http.HandleFunc("/artists", displayArtists)
-	http.HandleFunc("/", home)
-	http.HandleFunc("/contact", contact)
-	http.Handle("/templates/", http.StripPrefix("/templates/", http.FileServer(http.Dir("templates/cssFile"))))
-	http.ListenAndServe(":8080", nil)
+type ArtistsArray struct {
+	Artists []ArtistAPI
 }
 
-func artists() ([]Artist, error) {
-	url := "https://groupietrackers.herokuapp.com/api/artists"
-	req, _ := http.NewRequest("GET", url, nil)
-	res, _ := http.DefaultClient.Do(req)
+type Description struct {
+	ID           int
+	Image        string
+	Name         string
+	Members      []string
+	CreationDate int
+	FirstAlbum   string
+	Locations    string
+	ConcertDates string
+	Relations    string
+}
 
-	var a []Artist
-	defer res.Body.Close()
-	body, _ := ioutil.ReadAll(res.Body)
-	err := json.Unmarshal((body), &a)
+// 3
+var tempCard = template.Must(template.ParseFiles("HTML/artists.html"))    //artists -> card
+var tempHome = template.Must(template.ParseFiles("HTML/hpage.html"))      //hpage -> homePage
+var tempDetails = template.Must(template.ParseFiles("HTML/details.html")) //details -> details
+var apiElements []ArtistAPI
+
+func artist(w http.ResponseWriter, r *http.Request) {
+
+	api, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+
 	if err != nil {
-		return nil, err
+		fmt.Print(err.Error())
+		os.Exit(1)
 	}
-	return a, nil
-}
 
-func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
-	t, err := template.ParseFiles("./templates/" + tmpl + ".html")
+	apiData, err := ioutil.ReadAll(api.Body)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		log.Fatal(err)
 	}
-	t.Execute(w, data)
+
+	json.Unmarshal(apiData, &apiElements)
+
+	artistsData := ArtistsArray{
+		Artists: apiElements,
+	}
+
+	artistsMap := map[string]interface{}{
+		"DataArtists": artistsData,
+	}
+	tempCard.Execute(w, artistsMap)
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
-	data, err := artists()
+
+	api, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+
+	var apiElements ArtistAPI
+
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		fmt.Print(err.Error())
+		os.Exit(1)
 	}
-	renderTemplate(w, "home", data)
+
+	apiDataArtist, err := ioutil.ReadAll(api.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	json.Unmarshal(apiDataArtist, &apiElements)
+
+	tempHome.Execute(w, err)
 }
 
-/*func artist(w http.ResponseWriter, r *http.Request) {
-	data, err := artists()
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	renderTemplate(w, "artist", data)
-}*/
+// 8
+func details(w http.ResponseWriter, r *http.Request) {
 
-func contact(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "contact", nil)
+	pathID := r.URL.Path
+	pathID = path.Base(pathID)
+	pathIDint, _ := strconv.Atoi(pathID)
+	var locationsObject Relation
+
+	dataArtists := Description{
+		ID:           apiElements[pathIDint-1].ID,
+		Image:        apiElements[pathIDint-1].Image,
+		Members:      apiElements[pathIDint-1].Members,
+		CreationDate: apiElements[pathIDint-1].CreationDate,
+		FirstAlbum:   apiElements[pathIDint-1].FirstAlbum,
+		Locations:    apiElements[pathIDint-1].Locations,
+		ConcertDates: apiElements[pathIDint-1].ConcertDates,
+		Relations:    apiElements[pathIDint-1].Relations,
+	}
+
+	relations, err := http.Get(dataArtists.Relations)
+
+	if err != nil {
+		fmt.Print(err.Error())
+		os.Exit(1)
+	}
+
+	relationsData, err := ioutil.ReadAll(relations.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	json.Unmarshal(relationsData, &locationsObject)
+
+	mapInt := map[string]interface{}{
+		"DataArtists": dataArtists,
+		"Relations":   locationsObject,
+	}
+
+	tempDetails.Execute(w, mapInt)
 }
 
-func displayArtists(w http.ResponseWriter, r *http.Request) {
-	data, err := artists()
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	renderTemplate(w, "artist", data)
+// 9
+func main() {
+	fs := http.FileServer(http.Dir("./css"))
+	http.Handle("/css/", http.StripPrefix("/css/", fs))
+	http.HandleFunc("/", home)
+	http.HandleFunc("/artist", artist)
+	http.HandleFunc("/artist/", details)
 
-	/*jsonData, err := json.Marshal(data)
-	if err != nil {
-		http.Error(w, "Error marshalling data", http.StatusInternalServerError)
-		return
-	}
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)*/
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
