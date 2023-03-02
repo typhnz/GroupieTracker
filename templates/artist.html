@@ -1,24 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="cssFile/artist.css">
-  <title>Artist Page</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/card.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hurricane&display=swap" rel="stylesheet">
+    <title>Les artistes</title>
 </head>
+
 <body>
-  <!-- JSON data goes here, need to create a loop to go through all JSON elements --> 
-  <!--Create HTML elements and populate with data-->
-  <div class="cards-container">
-    <div class="card">
-        {{range .}}
-        <h1 class="Name">{{.Name}}</h1>
-        <img src="{{.Image}}" alt="236">
-        <div>
-          <p class="Members">{{.Members}}</p>
-          <p class="">{{.Members}}</p>
+    <div class="site">
+        <div class="item">
+            <div class="title">
+                <span>ARTISTES</span>
+            </div>
+            <div>
+                {{range .DataArtists.Artists}}
+                <div class="cards">
+                    <form method="POST" action="/artist/{{.ID}}">
+                        <input name="Oui" type="hidden" value="{{.ID}}">
+                            <button class="bouton" type="submit">
+                                <div class="flip-card">
+                                    <div class="flip-card-inner">
+                                        <div class="flip-card-front">
+                                            <img class="img" src="{{.Image}}">
+                                        </div>
+                                        <div class="flip-card-back">     
+                                            <div class="flip-card-back-name">
+                                                {{.Name}}
+                                            </div>
+                                            <div class="flip-card-back-date">
+                                                <div class="flip-card-back-date-tittle">
+                                                    Dates de Creation :
+                                                </div>
+                                                <div>
+                                                    {{.CreationDate}}
+                                                </div>
+                                            </div>
+                                            <div class="flip-card-back-member">
+                                                <div class="flip-card-back-date-members">
+                                                    Members :
+                                                </div>
+                                                {{range .Members}}
+                                                    <div>
+                                                        {{.}}
+                                                    </div>
+                                                {{end}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </button>
+                    </form>
+                </div>
+                {{end}}
+            </div>
         </div>
-        {{end}}
     </div>
-  </div>
 </body>
+
 </html>
