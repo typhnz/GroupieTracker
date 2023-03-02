@@ -47,6 +47,8 @@ type Description struct {
 
 const port = ":8080"
 
+var apiElements []ArtistAPI
+
 func details(w http.ResponseWriter, r *http.Request) {
 	pathID := r.URL.Path
 	pathID = path.Base(pathID)
@@ -83,14 +85,11 @@ func details(w http.ResponseWriter, r *http.Request) {
 	// 	"Relations":   locationsObject,
 	// }
 
-	renderTemplate(w, "details")
+	renderTemplate(w, "details", nil)
 }
 
-var apiElements []ArtistAPI
-
-
 func home(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "home")
+	renderTemplate(w, "home", nil)
 }
 
 func artist(w http.ResponseWriter, r *http.Request) {
@@ -108,24 +107,20 @@ func artist(w http.ResponseWriter, r *http.Request) {
 
 	json.Unmarshal(apiData, &apiElements)
 
-	// artistsData := ArtistsArray{
-	// 	Artists: apiElements,
-	// }
+	artistsData := ArtistsArray{
+		Artists: apiElements,
+	}
 
-	// artistsMap := map[string]interface{}{
-	// 	"DataArtists": artistsData,
-	// }
-
-	renderTemplate(w, "artist")
+	renderTemplate(w, "artist", artistsData)
 }
 
-func renderTemplate(w http.ResponseWriter, tmpl string) {
+func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
 	t, err := template.ParseFiles("../templates/" + tmpl + ".html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	t.Execute(w, nil)
+	t.Execute(w, data)
 }
 
 func searchHandler(w http.ResponseWriter, r *http.Request) {
@@ -133,7 +128,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	if query != "" {
 		fmt.Fprintf(w, "Vous avez cherché: %s", query)
 	} else {
-		renderTemplate(w, "mainPage")
+		renderTemplate(w, "mainPage", nil)
 	}
 }
 

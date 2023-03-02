@@ -1,3 +1,5 @@
+@import url(reset.css);
+
 .background{
     opacity: 0.7;
     position: fixed;
