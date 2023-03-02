@@ -47,7 +47,7 @@ type Description struct {
 
 // 3
 var tempCard = template.Must(template.ParseFiles("HTML/artists.html"))    //artists -> card
-var tempHome = template.Must(template.ParseFiles("HTML/hpage.html"))      //hpage -> homePage
+var tempHome = template.Must(template.ParseFiles("templates/HTML/home.html"))      //hpage -> homePage
 var tempDetails = template.Must(template.ParseFiles("HTML/details.html")) //details -> details
 var apiElements []ArtistAPI
 
@@ -79,23 +79,23 @@ func artist(w http.ResponseWriter, r *http.Request) {
 
 func home(w http.ResponseWriter, r *http.Request) {
 
-	api, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+	// api, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 
-	var apiElements ArtistAPI
+	// var apiElements ArtistAPI
 
-	if err != nil {
-		fmt.Print(err.Error())
-		os.Exit(1)
-	}
+	// if err != nil {
+	// 	fmt.Print(err.Error())
+	// 	os.Exit(1)
+	// }
 
-	apiDataArtist, err := ioutil.ReadAll(api.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// apiDataArtist, err := ioutil.ReadAll(api.Body)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
-	json.Unmarshal(apiDataArtist, &apiElements)
+	// json.Unmarshal(apiDataArtist, &apiElements)
 
-	tempHome.Execute(w, err)
+	tempHome.Execute(w, "home" /*err*/)
 }
 
 // 8
