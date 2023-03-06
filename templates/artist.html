@@ -22,7 +22,7 @@
             <div>
                 {{range .Artists}}
                 <div class="cards">
-                    <form method="POST" action="/artist/{{.ID}}/details">
+                    <form method="POST" action="/artist/{{.ID}}">
                         <input name="Oui" type="hidden" value="{{.ID}}">
                             <button class="bouton" type="submit">
                                 <div class="flip-card">
