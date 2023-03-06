@@ -19,11 +19,11 @@
             Details de l'artiste :
         </div>
         <div class="image">
-            <img class="img" src="{{.DataArtists.Image}}">
+            <img class="img" src="{{.Image}}">
         </div>
         <div class="info-global">
             <p class="info-global-title">Creation date :</p>
-        {{.dataArtists.CreationDate}}
+        {{.CreationDate}}
             <div>
                 <p class="info-global-title">Concert :</p>
                 {{range $key, $value := .Relation.DatesLocations}}
