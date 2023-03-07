@@ -14,8 +14,23 @@
 </head>
 
 <body>
+    <nav>
+        <ul>
+          <li>
+            <a href="/">HOME</a>
+          </li>
+          <!-- other navigation links -->
+          <li>
+            <form>
+              <input class="search" type="text" placeholder="Search...">
+              <button class="search-btn" type="submit">Search</button>
+            </form>
+          </li>
+        </ul>
+      </nav>
+
     <div class="site">
-        <div class="item">
+        <div class="body">
             <div class="title">
                 <span>ARTISTES</span>
             </div>
@@ -24,7 +39,7 @@
                 <div class="cards">
                     <form method="POST" action="/details">
                         <input name="Oui" type="hidden" value="{{.ID}}">
-                            <button class="bouton" type="submit">
+                            <button class="button-background" type="submit">
                                 <div class="flip-card">
                                     <div class="flip-card-inner">
                                         <div class="flip-card-front">
@@ -35,7 +50,7 @@
                                                 {{.Name}}
                                             </div>
                                             <div class="flip-card-back-date">
-                                                <div class="flip-card-back-date-tittle">
+                                                <div class="flip-card-back-date-title">
                                                     Dates de Creation :
                                                 </div>
                                                 <div>
