@@ -28,8 +28,34 @@ type Relation struct {
 	DatesLocations map[string][]string `json:"DatesLocations"`
 }
 
+type abc struct {
+	Index []Relation `json:"index"`
+}
+
+type Locations struct {
+	ID        int      `json:"id"`
+	Locations []string `json:"locations"`
+	Dates Dates
+}
+
+type bla struct {
+	Index []Locations `json:"index"`
+}
+
+type Dates struct {
+	ID    int      `json:"id"`
+	Dates []string `json:"dates"`
+}
+
+type blabla struct {
+	Index []Dates `json:"index"`
+}
+
 type ArtistsArray struct {
-	Artists []ArtistAPI
+	Artists   []ArtistAPI
+	Relation  abc
+	Locations bla
+	Dates     blabla
 }
 
 type Description struct {
@@ -51,6 +77,7 @@ var apiElements []ArtistAPI
 var artistsData ArtistsArray
 
 func details(w http.ResponseWriter, r *http.Request) {
+
 	az := r.FormValue("Oui")
 	fmt.Println(az)
 	id, _ := strconv.Atoi(az)
@@ -89,14 +116,16 @@ func details(w http.ResponseWriter, r *http.Request) {
 	// // 	"DataArtists": dataArtists,
 	// // 	"Relations":   locationsObject,
 	// // }
-	
-	//var locationsObject Relation
 
+	//var locationsObject Relation
 
 	fmt.Println(artistsData.Artists[id-1].Relations)
 	//fmt.Println(locationsObject)
 	renderTemplate(w, "details", artistsData.Artists[id-1])
-	renderTemplate(w, "details", artistsData.Artists[id-1].Relations)
+
+	var locationsObject Relation
+	json.Unmarshal([]byte(artistsData.Artists[id-1].Relations), &locationsObject)
+	fmt.Println(locationsObject)
 
 	//json.Unmarshal([]byte(artistsData.Artists[id-1].Relations), &locationsObject)
 }
@@ -105,24 +134,71 @@ func home(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "home", nil)
 }
 
-func artist(w http.ResponseWriter, r *http.Request) {
-	api, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+// func relation(w http.ResponseWriter, r *http.Request) {
+// 	api2, err2 := http.Get("https://groupietrackers.herokuapp.com/api/relation")
+
+// 	if err2 != nil {
+// 		fmt.Print(err2.Error())
+// 		os.Exit(1)
+// 	}
+
+// 	apiData2, err2 := ioutil.ReadAll(api2.Body)
+// 	if err2 != nil {
+// 		log.Fatal(err2)
+// 	}
+
+// 	json.Unmarshal(apiData2, &apiElements)
+
+// 	artistsData.Artists = apiElements
+
+// 	renderTemplate(w, "relation", artistsData)
+// }
+
+// func artist(w http.ResponseWriter, r *http.Request) {
+// 	api, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+
+// 	if err != nil {
+// 		fmt.Print(err.Error())
+// 		os.Exit(1)
+// 	}
+
+// 	apiData, err := ioutil.ReadAll(api.Body)
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+
+// 	json.Unmarshal(apiData, &apiElements)
+
+// 	artistsData.Artists = apiElements
+
+// 	renderTemplate(w, "artist", artistsData)
+// }
+
+func GetAPI(pathAPI string) {
+	restAPI := "https://groupietrackers.herokuapp.com/api/"
+
+	response, err := http.Get(restAPI + pathAPI)
 
 	if err != nil {
-		fmt.Print(err.Error())
+		log.Print(err.Error())
 		os.Exit(1)
 	}
 
-	apiData, err := ioutil.ReadAll(api.Body)
+	responseData, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	json.Unmarshal(apiData, &apiElements)
-
-	artistsData.Artists = apiElements
-
-	renderTemplate(w, "artist", artistsData)
+	switch pathAPI {
+	case "artists":
+		json.Unmarshal(responseData, &artistsData.Artists)
+	case "relation":
+		json.Unmarshal(responseData, &artistsData.Relation)
+	case "locations":
+		json.Unmarshal(responseData, &artistsData.Locations)
+	case "dates":
+		json.Unmarshal(responseData, &artistsData.Dates)
+	}
 }
 
 func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
@@ -150,8 +226,14 @@ func main() {
 	http.Handle("/picture/", http.StripPrefix("/picture/", http.FileServer(http.Dir("../templates/picture"))))
 	http.HandleFunc("/", home)
 	http.HandleFunc("/details", details)
-	http.HandleFunc("/artist", artist)
+	http.HandleFunc("/artist", )
 	http.HandleFunc("/search", searchHandler)
+	GetAPI("artists")
+	GetAPI("relation")
+	GetAPI("locations")
+	GetAPI("dates")
+	fmt.Println(artistsData.Locations)
+	fmt.Println(artistsData.Dates)
 	http.ListenAndServe(":8080", nil)
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
