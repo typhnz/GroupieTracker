@@ -1,75 +1,202 @@
 @import url(reset.css); <!--card-->
 
+
+body {
+  background-color:rgb(229, 225, 207);
+  background: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  }
+
 .site {
-  background-color: #0040ff;
+  background-color:rgb(229, 225, 207);
   background: cover;
 }
 
-.body {
-  background-color: #0040ff;
-  background: cover;
+/*filter*/
+
+/*.sort {
+  padding-top: 5%;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  margin-left: 80%;
 }
 
-.title  {
-  font-size: 30px;
-  color: #ae0707;
-  text-align: center;
-  padding-top: 3%;
+.sort-name {
+  padding-top: 5%;
 }
 
-/* search bar */
+.sort-name button {
+  background-color: black;
+  color: rgb(229, 225, 207);
+  border: 3px solid rgb(229, 225, 207);
+  border-radius: 8px;
+  padding: 12px 20px; 
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-align: center; 
+  text-decoration: none; 
+  display: inline-block;
+  font-size: 12px;
+  margin-left: 0;
+}
+
+.sort-album {
+  padding-top: 5%;
+  font-size: 12px;
+  margin-left: 1.5%;
+}
+
+.sort-members {
+  padding-top: 5%;
+  font-size: 12px;
+  margin-left: 1.5%;
+}*/
+
+/*title*/
+
+.title {
+  color:rgb(229, 225, 207);
+  font-size: 0;
+  line-height: 1.5;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-align: left;
+  letter-spacing: 7px;
+  margin-left: 5%;
+}
+
+.title span {
+  font-size: 4rem;
+  display: inline-block;
+  animation: move 3s ease-in-out infinite;
+}
+
+@keyframes move {
+  0% {
+    transform: translate(-30%, 0);
+  }
+  50% {
+    text-shadow: 0 25px 50px rgba(0, 0, 0, 0.75);
+  }
+  100% {
+    transform: translate(30%, 0);
+  }
+}
+
+.title span:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.title span:nth-child(3) {
+  animation-delay: 1s;
+}
+
+.title span:nth-child(4) {
+  animation-delay: 1.5s;
+}
+
+.title span:nth-child(5) {
+  animation-delay: 2s;
+}
+
+.title span:nth-child(6) {
+  animation-delay: 2.5s;
+}
+
+.title span:nth-child(7) {
+  animation-delay: 3s;
+}
+
+/* nav bar */
 
 nav {
   background-color: #000;
   color: #fff;
-  padding: 10px;
+  font-family: arial;
+  height: 100px;
+  width:100%;
+  display:flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 nav ul {
+  list-style:none;
+  display: flex;
+  align-items: center;
   margin: 0;
   padding: 0;
-  list-style: none;
 }
 
-nav ul li {
-  display: inline-block;
-  margin-right: 20px;
+nav li {
+  margin: 0 10px;
 }
 
-nav ul li a {
-  color: #d0d0d0;
+nav a {
+  margin-top: 10px;
   text-decoration: none;
-  font-size: 18px;
+  color: white;
 }
 
 .search {
-  background: #00ff48;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.search input {
+  padding:10px;
+  width: 30px;
   height: 30px;
-  border-radius: 30px;
-  padding: 10px 20px;
-  justify-content: center;
-  cursor: pointer;
-  transition: 0.8s;
+  background: none;
+  border: 3px solid rgb(229, 225, 207);
+  border-radius: 25px;
+  box-sizing: border-box;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 15px;
+  color: rgb(229, 225, 207);
+  outline: none;
+  transition: .5s;
+  margin-top: 20%;
+  position: relative; 
 }
 
-.search-btn {
-  background-color: #0040ff;
-  color: #fff;
-  border: none;
+.search input::placeholder {
+  color: transparent;
+}
+
+.search:hover input::placeholder {
+  color: #fff; 
+}
+
+.search i{
+  position: absolute;
+  top: 58%;
+  left: 15px; 
+  transform: translate(-50%,-50%);
+  font-size: 15px;
+  color: rgb(229, 225, 207);
+  transition: .2s;
+}
+
+.search:hover input{
+  width: 350px;
+  background: #3b3640;
   border-radius: 10px;
-  font-size: 18px;
-  cursor:pointer;
-  margin-top: 12px;
-  text-decoration: none;
-  border: 2px solid #011130;
-  transition: all 0.2s ease-in-out;
 }
 
-.search-btn:hover {
-  color: white;
-  border: 2px solid #ff0000;
-  background-color: #ff0000;
+.search:hover i{
+  display: none;
 }
+
+/*.bars {
+  color: white;
+}*/
+
+/*.logo {
+  margin-top: 5px;
+}*/
 
 /* cards */
 
@@ -79,34 +206,25 @@ nav ul li a {
   font-size: 16px;
   text-align: left;
   text-decoration: none;
-  margin: 1%;
+  margin: 2%;
 }
 
 .button-background  {
-  background-color: #721869;
-  font-family: 'Merriweather', serif;
+  background-color:transparent;
   cursor: pointer;
-  border-radius: 8px;
-  border: none;
+  height: 300px;
+  width: 300px;
+  border-color: transparent;
 }
 
 /* flip cards */
-
-.flip-card-back-date {
-  font-size: 15px;
-}
-.flip-card-back-date-title {
-  font-size: 20px;
-}
-.flip-card-back-date-members {
-  font-size: 20px;
-}
 
 .flip-card {
   background-color: transparent;
   width: 300px;
   height: 300px;
   perspective: 1000px;
+  border-radius: 8px;
 }
 
 .flip-card-inner {
@@ -116,7 +234,8 @@ nav ul li a {
   text-align: center;
   transition: transform 0.6s;
   transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(220, 15, 15, 0.2);
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
 }
 
 .flip-card:hover .flip-card-inner {
@@ -132,32 +251,42 @@ nav ul li a {
 }
 
 .flip-card-front {
-  background-color: #bbb;
+  background-color: rgb(249, 246, 238);
   color: black;
-  border: none;
-  border-radius: 8px;
-}
-
-.flip-card-back-name {
-  color: #fff;
-  text-align: center;
-  font-size: 40px;
-  padding-bottom: 5%;
-}
-.flip-card-back-member {
-  color: #fff;
-  font-size: 15px;
-}
-
-.flip-card-back {
-  background-color: #1f22e9;
-  color: white;
-  transform: rotateY(180deg);
   border-radius: 8px;
 }
 
 .img {
-  width:300px;
-  height:300px;
+  width:220px;
+  height:220px;
   border-radius: 8px;
+  justify-content:center ;
+  align-items: center;
+  margin-top: 14%;
+}
+
+/*flip cards back*/
+
+.flip-card-back {
+  background-color: black;
+  opacity: 50%;
+  color: white;
+  transform: rotateY(180deg);
+  border-radius: 8px; 
+  padding-top: 10%;
+}
+
+.flip-card,
+.flip-card-front,
+.flip-card-back {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 15px;
+}
+
+.flip-card-back-date,
+.flip-card-back-date-title,
+.flip-card-back-date-members,
+.flip-card-back-name,
+.flip-card-back-member {
+  font-size: 15px;
 }

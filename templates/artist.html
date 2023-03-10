@@ -5,35 +5,59 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="http://localhost:8080/cssFile/artist.css">
+    <link rel="stylesheet" href="./cssFile/artist.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://kit.fontawesome.com/a483f11411.css" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Hurricane&display=swap" rel="stylesheet">
-    <link rel="icon" href="picture/G.png"/>
+    <link rel="icon" href="./picture/G.png"/>
     <title>Groupie-Tracker</title>
 </head>
 
 <body>
     <nav>
-        <ul>
-          <li>
-            <a href="/">HOME</a>
-          </li>
-          <!-- other navigation links -->
-          <li>
-            <form>
-              <input class="search" type="text" placeholder="Search...">
-              <button class="search-btn" type="submit">Search</button>
-            </form>
-          </li>
+        <ul class="bars">
+            <i> eventual bars</i>
         </ul>
-      </nav>
+        <ul>
+            <a href="/">
+                <img src="picture/G.png" class="logo" width="50px" height="50px" alt="G logo">
+                </a>
+            </ul>
+            <ul class="search">
+                <input type="text" placeholder="search..." class="input" onfocus="this.placeholder =''">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </ul>
+    </nav>
 
     <div class="site">
         <div class="body">
-            <div class="title">
-                <span>ARTISTES</span>
+            <div class="sort">
+                <p class="filter-title">filters</p>
+                <div class="sort-name">
+                    <button onclick="sortAlphabetically()">sort a to z</button>
+                  </div>
+                <div class="sort-album">
+                    <p>date of 1st album release</p>
+                    <input type="range" id="input-range" class="range" min="1958" max="2021" value="2021" onchange="show()">
+                    <p>1958-2021<span id="dateOutput"></span></p>
+                </div>
+                <div class="sort-members">
+                    <p>number of members</p>
+                    <input type="range" id="input-range" class="range" min="1" max="10" onchange="show()">
+                    <p>1-10<span id="memberOutput"></span></p>
+                </div>
             </div>
+            <p class="title">
+                <span>a</span>
+                <span>r</span>
+                <span>t</span>
+                <span>i</span>
+                <span>s</span>
+                <span>t</span>
+                <span>s</span>
+            </p>
             <div>
                 {{range .Artists}}
                 <div class="cards">
