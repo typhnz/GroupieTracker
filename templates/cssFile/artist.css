@@ -129,6 +129,14 @@ nav ul {
   padding: 0;
 }
 
+nav form {
+  list-style:none;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
 nav li {
   margin: 0 10px;
 }
