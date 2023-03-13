@@ -77,9 +77,7 @@ var apiElements []ArtistAPI
 var artistsData ArtistsArray
 
 func details(w http.ResponseWriter, r *http.Request) {
-
 	az := r.FormValue("Oui")
-	fmt.Println(az)
 	id, _ := strconv.Atoi(az)
 	artistsData.Artists[id-1].Relations = artistsData.Relation.Index[id-1]
 	renderTemplate(w, "details", artistsData.Artists[id-1])
