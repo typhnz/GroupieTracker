@@ -38,7 +38,7 @@ type Locations struct {
 	Dates     Dates
 }
 
-type Location struct {
+type ExtractLocation struct {
 	Index []Locations `json:"index"`
 }
 
@@ -47,15 +47,15 @@ type Dates struct {
 	Dates []string `json:"dates"`
 }
 
-type blabla struct {
+type ExtractDate struct {
 	Index []Dates `json:"index"`
 }
 
 type ArtistsArray struct {
 	Artists   []ArtistAPI
 	Relation  ExtractRelation
-	Locations Location
-	Dates     blabla
+	Locations ExtractLocation
+	Dates     ExtractDate
 }
 
 type Description struct {
@@ -70,22 +70,7 @@ type Description struct {
 	Relations    string
 }
 
-const port = ":8080"
-
-var apiElements []ArtistAPI
-
 var artistsData ArtistsArray
-
-func details(w http.ResponseWriter, r *http.Request) {
-	az := r.FormValue("Oui")
-	id, _ := strconv.Atoi(az)
-	artistsData.Artists[id-1].Relations = artistsData.Relation.Index[id-1]
-	renderTemplate(w, "details", artistsData.Artists[id-1])
-}
-
-func home(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "home", nil)
-}
 
 func GetAPI(pathAPI string) {
 	restAPI := "https://groupietrackers.herokuapp.com/api/"
@@ -119,12 +104,19 @@ func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
 	t.Execute(w, data)
 }
 
+func home(w http.ResponseWriter, r *http.Request) {
+	renderTemplate(w, "home", nil)
+}
+
 func Arstists(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("../templates/artist.html")
-	if err != nil {
-		fmt.Println(err)
-	}
-	t.Execute(w, artistsData)
+	renderTemplate(w, "artist", artistsData)
+}
+
+func details(w http.ResponseWriter, r *http.Request) {
+	click := r.FormValue("true")
+	id, _ := strconv.Atoi(click)
+	artistsData.Artists[id-1].Relations = artistsData.Relation.Index[id-1]
+	renderTemplate(w, "details", artistsData.Artists[id-1])
 }
 
 func searchHandler(w http.ResponseWriter, r *http.Request) {
@@ -136,8 +128,12 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+const port = ":8080"
+
 func main() {
 	fmt.Println("(http://localhost:8080) - The serveur start on port", port)
+	GetAPI("artists")
+	GetAPI("relation")
 	http.Handle("/cssFile/", http.StripPrefix("/cssFile/", http.FileServer(http.Dir("../templates/cssFile"))))
 	http.Handle("/javaFile/", http.StripPrefix("/javaFile/", http.FileServer(http.Dir("../templates/javaFile"))))
 	http.Handle("/picture/", http.StripPrefix("/picture/", http.FileServer(http.Dir("../templates/picture"))))
@@ -145,8 +141,6 @@ func main() {
 	http.HandleFunc("/details", details)
 	http.HandleFunc("/artist", Arstists)
 	http.HandleFunc("/search", searchHandler)
-	GetAPI("artists")
-	GetAPI("relation")
 	http.ListenAndServe(":8080", nil)
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
