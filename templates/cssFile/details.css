@@ -2,7 +2,7 @@
 
 .site {
     background-color:rgb(229, 225, 207);
-    height: 110vh;
+    height: 100vh;
     background-size: cover;
 }
 
@@ -18,12 +18,13 @@
 .image {
 
     padding-top: 5%;
-    border-radius: 8px;
+    border-radius: 15px;
 }
 @media screen and (min-width: 500px) {
 
     .img {
-        border-radius: 8px;
+        border-radius: 200px;
+        margin-left: 140px;
         height: 400px;
         width: 400px;
         float: left;
@@ -38,17 +39,42 @@
     }
 }
 .info-global {
-    color: #091311;
+    color: #fefefe;
+    background-color: rgb(64, 64, 64);
     border: none;
-    display: inline-block;
-    text-align: left;
+    display: flex ;
+    flex-direction: column;
     font-size: 20px;
+    margin-left: 60vw;
     text-decoration: none;
-    margin: 1%;
+    text-align: 500px;
+    text-align: center;
+    width: 300px;
+    height: fit-content;
 }
+
 .info-global-title {
-    font-size: 30px;
+    font-size: 35px;
+    color: rgb(255, 0, 0);
+    text-align: center;
+}
+
+.oui {
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+    overflow-y:scroll;
 }
 .info-global-place {
-    font-size: 25px;
+    font-size: 27px;
+    text-align: center;
+}
+
+.name-artist {
+    font-family: "Helvetica Neue", "Arial",  sans-serif;
+    color: #091311;
+    font-weight: 200;
+    font-size: 4rem;
+    text-align: center;
+    padding-top: 0px;
 }

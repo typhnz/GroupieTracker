@@ -18,26 +18,29 @@
         <div class="title">
             Details de l'artiste :
         </div>
+        <div class="name-artist">
+        {{.Name}}
+        </div>
         <div class="image">
             <img class="img" src="{{.Image}}">
         </div>
         <div class="info-global">
             <p class="info-global-title">Creation date :</p>
         {{.CreationDate}}
-            <div>
-                <p class="info-global-title">Concert :</p>
-                {{range $key, $value := .Relations.DatesLocations}}
+            <div class="oui">
+                    <p class="info-global-title">Concert :</p>
+                    {{range $key, $value := .Relations.DatesLocations}}
                     <div class="info-global-place">
-                        {{$key}} :
+                         <p>{{$key}} :</p>
                     </div>
-                    <div>
-                        {{range $value}}
+                        <div>
+                            {{range $value}}
                             <div>
-                                {{.}}
+                               <p>{{.}}</p> 
                             </div>
-                        {{end}}
+                            {{end}}
                     </div>
-                {{end}}
+                    {{end}}
             </div>
         </div>
     </div>
