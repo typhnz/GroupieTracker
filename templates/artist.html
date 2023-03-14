@@ -35,10 +35,18 @@
         <div class="body">
             <div class="sort">
                 <p class="filter-title">filters</p>
-                <div class="sort-name">
-                    <button onclick="sortAlphabetically()">sort a to z</button>
-                  </div>
-                <div class="sort-album">
+                <div>
+                    <form action="/trie" method="post">
+                        <button class="button-background" type="submit" name="alphabet" value="1">
+                            <p>sort A-Z</p>
+                        </button>
+                    </form>
+                    <form action="/trie" method="post">
+                        <button class="button-background" type="submit" name="alphabet" value="2">
+                            <p>sort Z-A</p>
+                        </button>
+                    </form>
+                </div>
                     <p>date of 1st album release</p>
                     <input type="range" id="input-range" class="range" min="1958" max="2021" value="2021" onchange="show()">
                     <p>1958-2021<span id="dateOutput"></span></p>

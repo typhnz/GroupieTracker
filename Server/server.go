@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"sort"
 	"strconv"
 	"text/template"
 )
@@ -102,6 +103,31 @@ func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
 		return
 	}
 	t.Execute(w, data)
+}
+
+func trie(w http.ResponseWriter, r *http.Request) {
+	//Sort artist A to Z
+	value := r.FormValue("alphabet")
+	switch value {
+	case "1":
+		sortAToZ(w, r)
+	case "2":
+		sortZToA()
+	}
+}
+
+func sortAToZ(w http.ResponseWriter, r *http.Request) {
+	//Sort artist A to Z
+	sort.Slice(artistsData.Artists, func(i, j int) bool {
+		return artistsData.Artists[i].Name < artistsData.Artists[j].Name
+	})
+}
+
+func sortZToA() {
+	//Sort artist Z to A
+	sort.Slice(artistsData.Artists, func(i, j int) bool {
+		return artistsData.Artists[i].Name > artistsData.Artists[j].Name
+	})
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
