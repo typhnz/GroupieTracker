@@ -96,7 +96,7 @@ func GetAPI(pathAPI string) {
 	}
 }
 
-func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
+func renderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, data interface{}) {
 	t, err := template.ParseFiles("../templates/" + tmpl + ".html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -105,18 +105,7 @@ func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
 	t.Execute(w, data)
 }
 
-func trie(w http.ResponseWriter, r *http.Request) {
-	//Sort artist A to Z
-	value := r.FormValue("alphabet")
-	switch value {
-	case "1":
-		sortAToZ(w, r)
-	case "2":
-		sortZToA()
-	}
-}
-
-func sortAToZ(w http.ResponseWriter, r *http.Request) {
+func sortAToZ() {
 	//Sort artist A to Z
 	sort.Slice(artistsData.Artists, func(i, j int) bool {
 		return artistsData.Artists[i].Name < artistsData.Artists[j].Name
@@ -130,19 +119,49 @@ func sortZToA() {
 	})
 }
 
-func home(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "home", nil)
+func sortMostRecent() {
+	//Sort artist most recent to least
+	sort.Slice(artistsData.Artists, func(i, j int) bool {
+		return artistsData.Artists[i].CreationDate > artistsData.Artists[j].CreationDate
+	})
 }
 
-func Arstists(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "artist", artistsData)
+func sortLeastRecent() {
+	//Sort artist least recent to most
+	sort.Slice(artistsData.Artists, func(i, j int) bool {
+		return artistsData.Artists[i].CreationDate < artistsData.Artists[j].CreationDate
+	})
+}
+
+func home(w http.ResponseWriter, r *http.Request) {
+	renderTemplate(w, r, "home", nil)
+}
+
+func Artists(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		renderTemplate(w, r, "artist", artistsData)
+	case "POST":
+		value := r.FormValue("alphabet")
+		switch value {
+		case "1":
+			sortAToZ()
+		case "2":
+			sortZToA()
+		case "3":
+			sortMostRecent()
+		case "4":
+			sortLeastRecent()
+		}
+		renderTemplate(w, r, "artist", artistsData)
+	}
 }
 
 func details(w http.ResponseWriter, r *http.Request) {
 	click := r.FormValue("true")
 	id, _ := strconv.Atoi(click)
 	artistsData.Artists[id-1].Relations = artistsData.Relation.Index[id-1]
-	renderTemplate(w, "details", artistsData.Artists[id-1])
+	renderTemplate(w, r, "details", artistsData.Artists[id-1])
 }
 
 func searchHandler(w http.ResponseWriter, r *http.Request) {
@@ -150,7 +169,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	if query != "" {
 		fmt.Fprintf(w, "Vous avez cherché: %s", query)
 	} else {
-		renderTemplate(w, "mainPage", nil)
+		renderTemplate(w, r, "mainPage", nil)
 	}
 }
 
@@ -165,7 +184,7 @@ func main() {
 	http.Handle("/picture/", http.StripPrefix("/picture/", http.FileServer(http.Dir("../templates/picture"))))
 	http.HandleFunc("/", home)
 	http.HandleFunc("/details", details)
-	http.HandleFunc("/artist", Arstists)
+	http.HandleFunc("/artist", Artists)
 	http.HandleFunc("/search", searchHandler)
 	http.ListenAndServe(":8080", nil)
 	err := http.ListenAndServe(":8080", nil)

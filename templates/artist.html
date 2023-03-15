@@ -33,30 +33,6 @@
 
     <div class="site">
         <div class="body">
-            <div class="sort">
-                <p class="filter-title">filters</p>
-                <div>
-                    <form action="/trie" method="post">
-                        <button class="button-background" type="submit" name="alphabet" value="1">
-                            <p>sort A-Z</p>
-                        </button>
-                    </form>
-                    <form action="/trie" method="post">
-                        <button class="button-background" type="submit" name="alphabet" value="2">
-                            <p>sort Z-A</p>
-                        </button>
-                    </form>
-                </div>
-                    <p>date of 1st album release</p>
-                    <input type="range" id="input-range" class="range" min="1958" max="2021" value="2021" onchange="show()">
-                    <p>1958-2021<span id="dateOutput"></span></p>
-                </div>
-                <div class="sort-members">
-                    <p>number of members</p>
-                    <input type="range" id="input-range" class="range" min="1" max="10" onchange="show()">
-                    <p>1-10<span id="memberOutput"></span></p>
-                </div>
-            </div>
             <p class="title">
                 <span>a</span>
                 <span>r</span>
@@ -66,6 +42,30 @@
                 <span>t</span>
                 <span>s</span>
             </p>
+            <div class="sort">
+                <div>
+                  <form action="" method="post">
+                    <button class="sort-button" type="submit" name="alphabet" value="1">
+                      <p>sort A-Z</p>
+                    </button>
+                  </form>
+                  <form action="" method="post">
+                    <button class="sort-button" type="submit" name="alphabet" value="2">
+                      <p>sort Z-A</p>
+                    </button>
+                  </form>
+                  <form action="" method="post">
+                    <button class="sort-button" type="submit" name="recent" value="1">
+                      <p>most recent</p>
+                    </button>
+                  </form>
+                  <form action="" method="post">
+                    <button class="sort-button" type="submit" name="recent" value="2">
+                      <p>least recent</p>
+                    </button>
+                  </form>
+                </div>
+            </div>
             <div>
                 {{range .Artists}}
                 <div class="cards">
