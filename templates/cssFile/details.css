@@ -6,6 +6,14 @@
     background-size: cover;
 }
 
+main {
+    display: flex;
+    flex-direction: row ;
+    justify-content: center;
+    align-items: center;
+    gap: 150px;
+}
+
 .title {
     font-family: 'Hurricane', cursive;
     color: #091311;
@@ -24,7 +32,6 @@
 
     .img {
         border-radius: 200px;
-        margin-left: 140px;
         height: 400px;
         width: 400px;
         float: left;
@@ -39,24 +46,28 @@
     }
 }
 .info-global {
-    color: #fefefe;
-    background-color: rgb(64, 64, 64);
-    border: none;
+    color: #cfcfcf;
+    background-color: #091311;
+    border-radius: 10px;
     display: flex ;
     flex-direction: column;
     font-size: 20px;
-    margin-left: 60vw;
     text-decoration: none;
     text-align: 500px;
     text-align: center;
-    width: 300px;
+    width: 400px;
     height: fit-content;
 }
 
 .info-global-title {
     font-size: 35px;
-    color: rgb(255, 0, 0);
+    color: white;
     text-align: center;
+}
+
+.info-global .maps:hover {
+    color: white;
+    border-bottom: 2px solid white;
 }
 
 .oui {
@@ -77,4 +88,22 @@
     font-size: 4rem;
     text-align: center;
     padding-top: 0px;
+}
+
+
+.logos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #091311;
+    width: 120px;
+    border-radius: 10px;
+}
+
+.logomusic {
+    width: 50px;
+    position: relative;
+    
 }

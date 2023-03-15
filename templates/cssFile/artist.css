@@ -79,7 +79,7 @@ body {
 .title span {
   font-size: 4rem;
   display: inline-block;
-  animation: move 3s ease-in-out infinite;
+  animation: move 3s ease-in-out infinite;;
 }
 
 @keyframes move {

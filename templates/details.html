@@ -21,28 +21,38 @@
         <div class="name-artist">
         {{.Name}}
         </div>
-        <div class="image">
-            <img class="img" src="{{.Image}}">
-        </div>
-        <div class="info-global">
-            <p class="info-global-title">Creation date :</p>
-        {{.CreationDate}}
-            <div class="oui">
-                    <p class="info-global-title">Concert :</p>
-                    {{range $key, $value := .Relations.DatesLocations}}
-                    <div class="info-global-place">
-                         <p>{{$key}} :</p>
-                    </div>
-                        <div>
-                            {{range $value}}
-                            <div>
-                               <p>{{.}}</p> 
-                            </div>
-                            {{end}}
-                    </div>
-                    {{end}}
-            </div>
-        </div>
+        <main>
+            <div class="image">
+                <img class="img" src="{{.Image}}">
+           </div>
+           <div class="info-global">
+               <p class="info-global-title">Creation date :</p>
+           {{.CreationDate}}
+               <div class="oui">
+                       <p class="info-global-title">Concert :</p>
+                       {{range $key, $value := .Relations.DatesLocations}}
+                       <div class="info-global-place">
+                            <a class="maps" href="https://www.google.fr/maps/search/{{$key}}" target="_blank"><span>📍 {{$key}}:</span></a>
+                       </div>
+                           <div>
+                               {{range $value}}
+                               <div>
+                                  <p>{{.}}</p> 
+                               </div>
+                               {{end}}
+                       </div>
+                       {{end}}
+               </div>
+           </div>
+           <div class="logos">
+               <a class="logomusic" href="https://open.spotify.com/search/{{.Name}}" target="_blank">
+                   <img class="logomusic" src="http://localhost:8080/picture/spotify.png" alt="">
+               </a>
+               <a class="logomusic" href="https://www.deezer.com/search/{{.Name}}" target="_blank">
+                   <img class="logomusic" src="http://localhost:8080/picture/deezer.png" alt="">
+               </a>
+           </div>
+        </main>
     </div>
 </body>
 </html>
