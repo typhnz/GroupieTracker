@@ -11,4 +11,5 @@ To start the project, you just have to go to Server by doing "cd Server" in the 
 
 ## Features we'll improve in V2
 
-In the next version we would like to add functional filters, a functional search bar. In addition we would like to add a link that would go directly to deezer or spotify, from the artist's characteristics page.
+In the future we want to add a functionnal search bar, we also want to add the paging because we don't have enought time and don't know how to do it.
+With more time we probably have it. Actually we don't have the map on the details page, but on a clickable link.

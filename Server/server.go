@@ -160,7 +160,7 @@ func Artists(w http.ResponseWriter, r *http.Request) {
 func details(w http.ResponseWriter, r *http.Request) {
 	click := r.FormValue("true")
 	id, _ := strconv.Atoi(click)
-	//reaload the API
+	//reload the API
 	GetAPI("artists")
 	artistsData.Artists[id-1].Relations = artistsData.Relation.Index[id-1]
 	renderTemplate(w, r, "details", artistsData.Artists[id-1])
