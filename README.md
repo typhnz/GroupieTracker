@@ -1,6 +1,13 @@
 # GroupieTracker
-Groupie Tracker Project assigned 03/02/2023
+Groupie Tracker Project started on 03/02/2023
 
-## GroupieTracker API
+## How to launch the project?
 
-So th
+To start the project, you just have to go to Server by doing "cd Server" in the terminal. Once you have this, do go run server.go
+
+
+
+
+
+-comment demarrer le projet 
+-
