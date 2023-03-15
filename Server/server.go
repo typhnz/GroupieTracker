@@ -144,13 +144,13 @@ func Artists(w http.ResponseWriter, r *http.Request) {
 	case "POST":
 		value := r.FormValue("option")
 		switch value {
-		case "1":
+		case "sortAtoZ":
 			sortAToZ()
-		case "2":
+		case "sortZtoA":
 			sortZToA()
-		case "3":
+		case "sortMostRecent":
 			sortMostRecent()
-		case "4":
+		case "sortLeastRecent":
 			sortLeastRecent()
 		}
 		renderTemplate(w, r, "artist", artistsData)
