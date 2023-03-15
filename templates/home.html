@@ -5,24 +5,32 @@
     <head>
         <title>Groupie-Tracker</title>
     </head>
-    <body>       
-
+    <body> 
+        <div class="videoTaille">
+            <video autoplay muted loop id="video-background">
+                <source src="http://localhost:8080/picture/videoCharles.mp4" type="video/mp4">
+            </video>
+        </div>      
+        
         <div>
             <h1 class="mainText"> Lorem ipsum dolor sit amet.</h1>
             <h2 class="mainText">Lorem ipsum dolor sit amet.</h2>
         </div>
 
-        <form action="/artist">
-            <button type="submit" class="btn">
-                <strong>Découvrir les artistes</strong>
-            </button>
-        </form>
-    
+        <main>
+            <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+            <script src="http://localhost:8080/javaFile/writeAnimation.js"></script>
+
+            <form action="/artist">
+                <button type="submit" class="btn">
+                    <strong>Découvrir les artistes</strong>
+                </button>
+            </form>
+        </main>
         
-        <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
-        <script src="http://localhost:8080/javaFile/writeAnimation.js"></script>
-        <img src="http://localhost:8080/picture/Foule_image.jpg" class="background">
-        <div class="footer"><p>© 2023 Groupiesss Tracker, Create BY Tayvadi, Charles and Tom </p></div>
+        
+        <!--<img src="http://localhost:8080/picture/Foule_image.jpg" class="background">-->
+        <div class="footer"><p>© 2023 Groupies Tracker, Create BY Tayvadi, Charles and Tom </p></div>
     </body>
 
 </html>
