@@ -120,14 +120,14 @@ func sortZToA() {
 }
 
 func sortMostRecent() {
-	//Sort artist most recent to least
+	// Sort artists by most recent creation date
 	sort.Slice(artistsData.Artists, func(i, j int) bool {
 		return artistsData.Artists[i].CreationDate > artistsData.Artists[j].CreationDate
 	})
 }
 
 func sortLeastRecent() {
-	//Sort artist least recent to most
+	// Sort artists by least recent creation date
 	sort.Slice(artistsData.Artists, func(i, j int) bool {
 		return artistsData.Artists[i].CreationDate < artistsData.Artists[j].CreationDate
 	})
@@ -142,7 +142,7 @@ func Artists(w http.ResponseWriter, r *http.Request) {
 	case "GET":
 		renderTemplate(w, r, "artist", artistsData)
 	case "POST":
-		value := r.FormValue("alphabet")
+		value := r.FormValue("option")
 		switch value {
 		case "1":
 			sortAToZ()
